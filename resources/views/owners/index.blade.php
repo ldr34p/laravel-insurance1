@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-3">
-            <a href="{{ route("owners.create") }}" class="btn btn-success">{{ __('Add new owner') }}</a>
+            <a href="{{ route("owners.create") }}" class="btn btn-success">{{ __('Add New Owner') }}</a>
             <table class="table">
                 <tbody>
                 <tr>

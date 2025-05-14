@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Owner;
 use Illuminate\Http\Request;
 
@@ -18,14 +20,6 @@ class OwnerController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email|unique:owners,email',
-            'address' => 'required',
-        ]);
-
         $owner = new Owner();
         $owner->name = $request->name;
         $owner->surname = $request->surname;
@@ -39,20 +33,18 @@ class OwnerController extends Controller
 
     public function edit(Owner $owner)
     {
-        return view('owners.edit', compact('owner'));
+        return view('owners.edit', ['owner' => $owner]);
     }
 
     public function update(Request $request, Owner $owner)
     {
-        $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email|unique:owners,email,' . $owner->id,
-            'address' => 'required',
-        ]);
+        $owner->name = $request->name;
+        $owner->surname = $request->surname;
+        $owner->phone = $request->phone;
+        $owner->email = $request->email;
+        $owner->address = $request->address;
+        $owner->save();
 
-        $owner->update($request->all());
         return redirect()->route('owners.index');
     }
 
