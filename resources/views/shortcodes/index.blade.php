@@ -28,7 +28,7 @@
                                 <form action="{{ route('shortcodes.destroy', $code->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button class="btn btn-danger" onclick="return confirm('{{__('Are you sure?')}}')">{{__('Delete')}}</button>
                                 </form>
                             </td>
                         </tr>

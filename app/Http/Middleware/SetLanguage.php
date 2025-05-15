@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin
+class SetLanguage
 {
     /**
      * Handle an incoming request.
@@ -15,12 +16,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request -> user() -> type == 'admin' && $request -> user()!= null){
-            return $next($request);
-        }else{
-            session()->flash('error', __('You should have admin user type to make changes.'));
-
-            return redirect()->back();
-        }
+        App::setLocale($request->session()->get('lang',App::getLocale()));
+        return $next($request);
     }
 }

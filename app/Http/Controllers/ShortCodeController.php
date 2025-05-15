@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ShortCode;
+use Illuminate\Support\Facades\App;
 class ShortCodeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $codes = ShortCode::all();
         return view('shortcodes.index', compact('codes'));

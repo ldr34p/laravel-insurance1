@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ShortCodeController;
+use App\Http\Controllers\LangController;
 use App\Http\Middleware\Bug;
 use App\Http\Middleware\IsAdmin;
 
@@ -32,3 +33,4 @@ Route::resource('shortcodes', ShortCodeController::class)->only('index')->middle
 Route::resource('shortcodes', ShortCodeController::class)->except(['index', 'destroy'])->middleware(Bug::class);
 Route::resource('shortcodes', ShortCodeController::class)->only(['destroy', 'create', 'store', 'edit', 'update'])->middleware(IsAdmin::class);
 
+Route::get('setLanguage/{lang}', [LangController::class, 'switchLang'])->name('setLanguage');

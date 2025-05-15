@@ -18,22 +18,22 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="reg_number" class="form-label">Registration Number</label>
+                        <label for="reg_number" class="form-label">{{__('Registration Number')}}</label>
                         <input type="text" name="reg_number" class="form-control" id="reg_number" value="{{$car->reg_number}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="brand" class="form-label">Brand</label>
+                        <label for="brand" class="form-label">{{__('Brand')}}</label>
                         <input type="text" name="brand" class="form-control" id="brand" value="{{$car->brand}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="model" class="form-label">Model</label>
+                        <label for="model" class="form-label">{{__('Model')}}</label>
                         <input type="text" name="model" class="form-control" id="model" value="{{$car->model}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="owner" class="form-label">Owner</label>
+                        <label for="owner" class="form-label">{{__('Owner')}}</label>
                         <select class="form-control" name="owner_id">
                             <option value="" selected>-</option>
                             @foreach($owners as $owner)
@@ -43,7 +43,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="submit" class="btn btn-success">{{__('Update')}}</button>
                 </form>
             </div>
         </div>

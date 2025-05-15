@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\Bug;
 use App\Http\Middleware\Replace;
+use App\Http\Middleware\SetLanguage;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -14,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(Replace::class);
+        $middleware->web(append: [
+            SetLanguage::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Models\Owner;
+use Illuminate\Support\Facades\App;
 
 class CarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $cars = Car::all();
         return view('cars.index', compact('cars'));

@@ -18,30 +18,30 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">{{__('Name')}}</label>
                         <input type="text" name="name" class="form-control" id="name" value="{{$owner->name}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="surname" class="form-label">Surname</label>
+                        <label for="surname" class="form-label">{{__('Surname')}}</label>
                         <input type="text" name="surname" class="form-control" id="surname" value="{{$owner->surname}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="phone" class="form-label">Phone</label>
+                        <label for="phone" class="form-label">{{__('Phone')}}</label>
                         <input type="number" name="phone" class="form-control" id="phone" value="{{$owner->phone}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">{{__('Email')}}</label>
                         <input type="email" name="email" class="form-control" id="email" value="{{$owner->email}}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
+                        <label for="address" class="form-label">{{__('Address')}}</label>
                         <input type="text" name="address" class="form-control" id="address" value="{{$owner->address}}" required>
                     </div>
-                    <button type="submit" class="btn btn-success">Update</button>
+                    <button type="submit" class="btn btn-success">{{__('Update')}}</button>
                 </form>
             </div>
         </div>

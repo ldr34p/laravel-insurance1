@@ -37,17 +37,23 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link"  href="{{ route('owners.index') }}">Owners</a>
+                            <a class="nav-link"  href="{{ route('owners.index') }}">{{__('nav.Owners')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('cars.index') }}">Cars</a>
+                            <a class="nav-link" href="{{ route('cars.index') }}">{{__('nav.Cars')}}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('shortcodes.index') }}">ShortCodes</a>
+                            <a class="nav-link" href="{{ route('shortcodes.index') }}">{{__('nav.ShortCodes')}}</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('setLanguage','lt') }}">LT</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav-link pr-5" href="{{ route('setLanguage','en') }}">EN</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -64,7 +70,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} ({{ (Auth::user()->type!='admin')?'viewer':'admin' }})
+                                    {{ Auth::user()->name }} ({{ (Auth::user()->type!='admin')?__('viewer'):__('admin') }})
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -90,10 +96,10 @@
         </main>
     </div>
     <div>
-        Phone: [phone]
+        {{__('Phone')}}: [phone]
     </div>
 <div>
-    Email: [email]
+    {{__('Email')}}: [email]
 </div>
     <script>
         setTimeout(() => {

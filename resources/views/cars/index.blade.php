@@ -38,7 +38,7 @@
                                 <form action="{{ route('cars.destroy', $car->id) }}" method="post">
                                     @csrf
                                     @method("DELETE")
-                                    <button href="" class="btn btn-danger">{{ __("Delete") }}</button>
+                                    <button href="" class="btn btn-danger" onclick="return confirm('{{__('Are you sure?')}}')">{{ __('Delete') }}</button>
                                 </form>
                             </td>
                         </tr>
