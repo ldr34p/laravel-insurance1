@@ -17,7 +17,13 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <div id="app">
+    @if (session('error'))
+        <div style="background: #f87171; color: white; padding: 1rem; margin: 1rem; border-radius: 8px;">
+            {{ session('error') }}
+        </div>
+    @endif
+
+<div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -35,6 +41,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('cars.index') }}">Cars</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('shortcodes.index') }}">ShortCodes</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -55,7 +64,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->name }} ({{ (Auth::user()->type!='admin')?'viewer':'admin' }})
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -80,5 +89,16 @@
             @yield('content')
         </main>
     </div>
+    <div>
+        Phone: [phone]
+    </div>
+<div>
+    Email: [email]
+</div>
+    <script>
+        setTimeout(() => {
+            document.querySelector('div[style*="background: #f87171"]').remove();
+        }, 3000);
+    </script>
 </body>
 </html>
