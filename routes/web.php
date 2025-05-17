@@ -10,16 +10,20 @@ use App\Http\Middleware\IsAdmin;
 
 Auth::routes();
 
+Route::resource('cars', CarController::class)->only('index')->middleware('auth');
+Route::resource('owners', OwnerController::class)->only('index')->middleware('auth');
+
 Route::get('/', function () {
     return Auth::check()
-        ? redirect()->route('index')
+        ? redirect()->route('owners.index')
         : redirect()->route('login');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('owners', OwnerController::class);
-#Route::resource('cars', CarController::class);
+//Route::resource('owners', OwnerController::class);
+//Route::resource('cars', CarController::class);
+
 Route::resource('cars', CarController::class)->only('index')->middleware('auth');
 Route::resource('owners', OwnerController::class)->only('index')->middleware('auth');
 
