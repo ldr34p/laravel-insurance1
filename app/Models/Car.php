@@ -10,4 +10,8 @@ class Car extends Model
     {
         return $this->belongsTo(Owner::class);
     }
+    public function images()
+    {
+        return $this->hasMany(CarImage::class);
+    }
 }

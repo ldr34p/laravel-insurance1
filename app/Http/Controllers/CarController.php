@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Models\Owner;
+use App\Models\CarImage;
 use Illuminate\Support\Facades\App;
 use App\Http\Requests\CarRequest;
 
@@ -46,6 +47,19 @@ class CarController extends Controller
         $car->brand = $request->brand;
         $car->model = $request->model;
         $car->owner_id = $request->owner_id;
+
+        if ($request->hasFile('image')) {
+            foreach($request->file('image') as $image)
+            {
+                $path=$image->store('public/car-images');
+                $cleanPath = str_replace('public/', '', $path);
+                $car->images()->create([
+                    'path' => $cleanPath
+                ]);
+            };
+
+        }
+
         $car->save();
 
         return redirect()->route('cars.index');

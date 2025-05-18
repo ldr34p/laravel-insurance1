@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CarRequest extends FormRequest
 {
@@ -27,11 +28,12 @@ class CarRequest extends FormRequest
                 'string',
                 'max:6',
                 'regex:/^([ABCDEFGHIYJKLMNOPRSTUVZ]{3}[0-9]{3}|T[0-9]{4}|EX[0-9]{4}|H[0-9]{5}|P[0-9]{5}|[0-9]{4}[A-Z]{2})$/',
-                'unique:cars,reg_number',
+                Rule::unique('cars', 'reg_number')->ignore($this->route('car')),
             ],
             'brand' => 'required|string|max:30',
             'model' => 'required|string|max:128',
-            'owner_id' => 'required|integer'
+            'owner_id' => 'required|integer',
+            'image.*' => 'image|mimes:jpeg,png,jpg|max:2048'
         ];
     }
 
@@ -53,6 +55,7 @@ class CarRequest extends FormRequest
             'model.string' => __('The model must be a string.'),
             'model.max' => __('The model must not be greater than 128 characters.'),
             'reg_number.unique' => __('The registration number has already been taken.'),
+            'image.*.image' => __('The image must be an image file.'),
         ];
     }
 }

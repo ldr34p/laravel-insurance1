@@ -15,7 +15,7 @@
                 @endif
 
                 <!--Input form-->
-                <form action="{{ route('cars.update', $car) }}" method="POST">
+                <form action="{{ route('cars.update', $car) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -38,10 +38,24 @@
                         <select class="form-control @error('owner_id') is-invalid @enderror" name="owner_id">
                             <option value="">-</option>
                             @foreach($owners as $owner)
-                                <option value="{{ $owner->id }}"  {{ old('owner_id') == $owner->id ? 'selected' : '' }}>{{ $owner->name }} {{ $owner->surname }}</option>
+                                <option value="{{ $owner->id }}"  {{ old('owner_id', $car->owner_id) == $owner->id ? 'selected' : '' }}>{{ $owner->name }} {{ $owner->surname }}</option>
                             @endforeach
 
                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{__('Photo')}}</label>
+                        <ul>
+                            @foreach($car->images as $image)
+                                <li>
+                                    <img src="{{asset('storage/'.$image->path)}}" alt="" width="100">
+                                    <a href="{{ route('car-images.destroyImage', $image->id) }}" class="btn btn-danger">{{__('Delete')}}</a>
+                                </li>
+                                <br>
+                            @endforeach
+                        </ul>
+                        <input type="file" name="image[]" class="form-control @error('image') is-invalid @enderror" id="image" multiple>
                     </div>
 
                     <button type="submit" class="btn btn-success">{{__('Update')}}</button>

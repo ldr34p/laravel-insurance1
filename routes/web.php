@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarImageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\CarController;
@@ -21,12 +22,6 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route::resource('owners', OwnerController::class);
-//Route::resource('cars', CarController::class);
-
-Route::resource('cars', CarController::class)->only('index')->middleware('auth');
-Route::resource('owners', OwnerController::class)->only('index')->middleware('auth');
-
 Route::resource('cars', CarController::class)->except(['index', 'destroy'])->middleware(Bug::class);
 Route::resource('cars', CarController::class)->only(['destroy', 'create', 'store', 'edit', 'update'])->middleware(IsAdmin::class);
 
@@ -38,3 +33,6 @@ Route::resource('shortcodes', ShortCodeController::class)->except(['index', 'des
 Route::resource('shortcodes', ShortCodeController::class)->only(['destroy', 'create', 'store', 'edit', 'update'])->middleware(IsAdmin::class);
 
 Route::get('setLanguage/{lang}', [LangController::class, 'switchLang'])->name('setLanguage');
+
+Route::get('car-images/{image}/', [CarImageController::class, 'destroyImage'])->name('car-images.destroyImage');
+//Route::resource('cars.images.destroy', CarImageController::class)->middleware('auth')->middleware(IsAdmin::class);
