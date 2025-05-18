@@ -18,7 +18,7 @@
 </head>
 <body>
     @if (session('error'))
-        <div style="background: #f87171; color: white; padding: 1rem; margin: 1rem; border-radius: 8px;">
+        <div class="alert alert-danger" style="padding: 1rem; margin: 1rem; border-radius: 8px;">
             {{ session('error') }}
         </div>
     @endif
@@ -103,8 +103,16 @@
 </div>
     <script>
         setTimeout(() => {
-            document.querySelector('div[style*="background: #f87171"]').remove();
+            document.querySelector('div[style*="padding: 1rem"]').remove();
         }, 3000);
+        document.querySelectorAll('[required]').forEach(el => {
+            el.addEventListener('invalid', () => {
+                el.setCustomValidity('{{__('Please fill out.')}}');
+            });
+            el.addEventListener('input', () => {
+                el.setCustomValidity('');
+            });
+        });
     </script>
 </body>
 </html>

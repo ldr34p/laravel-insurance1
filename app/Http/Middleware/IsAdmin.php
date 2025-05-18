@@ -15,7 +15,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request -> user() -> type == 'admin' && $request -> user()!= null){
+        if($request -> user()!= null && $request -> user() -> type == 'admin'){
             return $next($request);
         }else{
             session()->flash('error', __('You should have admin user type to make changes.'));

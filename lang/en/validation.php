@@ -192,6 +192,10 @@ return [
     |
     */
 
-    'attributes' => [],
-
+    'attributes' => [
+        'reg_number' => 'registration number',
+        'brand' => 'brand',
+        'model' => 'model',
+        'owner_id' => 'owner'
+    ]
 ];

@@ -6,6 +6,7 @@ use App\Models\Car;
 use Illuminate\Http\Request;
 use App\Models\Owner;
 use Illuminate\Support\Facades\App;
+use App\Http\Requests\CarRequest;
 
 class CarController extends Controller
 {
@@ -21,7 +22,7 @@ class CarController extends Controller
         return view('cars.create', compact('owners'));
     }
 
-    public function store(Request $request)
+    public function store(CarRequest $request)
     {
         $car = new Car();
         $car->reg_number = $request->reg_number;
@@ -39,7 +40,7 @@ class CarController extends Controller
         return view('cars.edit', compact('car', 'owners'));
     }
 
-    public function update(Request $request, Car $car)
+    public function update(CarRequest $request, Car $car)
     {
         $car->reg_number = $request->reg_number;
         $car->brand = $request->brand;
