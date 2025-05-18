@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\App;
 
 class OwnerController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Owner::class, 'Owner');
+    }
     public function index(Request $request)
     {
         $owners = Owner::all();

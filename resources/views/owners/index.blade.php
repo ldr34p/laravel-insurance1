@@ -26,9 +26,9 @@
                         <td>{{$owner->phone}}</td>
                         <td>{{$owner->address}}</td>
                         <td>
-                            <a href="{{ route('owners.edit', $owner->id) }}" class="btn btn-primary">
-                                {{ __("Edit") }}
-                            </a>
+                            @can('update',$owner)
+                                <a href="{{ route('owners.edit', $owner->id) }}" class="btn btn-primary">Edit</a>
+                            @endcan
                         </td>
                         <td>
                             <form action="{{ route('owners.destroy', $owner->id) }}" method="post">
