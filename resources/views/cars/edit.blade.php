@@ -15,7 +15,7 @@
                 @endif
 
                 <!--Input form-->
-                <form action="{{ route('cars.update', $car) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('cars.update', $car) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -38,31 +38,10 @@
                         <select class="form-control @error('owner_id') is-invalid @enderror" name="owner_id">
                             <option value="">-</option>
                             @foreach($owners as $owner)
-                                <option value="{{ $owner->id }}" {{ (old('owner_id', $car->owner_id) == $owner->id) ? 'selected' : '' }}>{{ $owner->name }} {{ $owner->surname }}</option>
+                                <option value="{{ $owner->id }}"  {{ old('owner_id') == $owner->id ? 'selected' : '' }}>{{ $owner->name }} {{ $owner->surname }}</option>
                             @endforeach
+
                         </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">{{__('Photo')}}</label>
-                        <input type="file" name="photos[]" multiple class="form-control">
-                        <br>
-                        <ul>
-                        @forelse ($car->photo as $photo)
-                                <li>
-                                    <img src="{{ asset('storage/' . $photo->path) }}" alt="" style="width: 100px">
-                                    <form action="{{ route('cars.photos.destroy', [$car->id, $photo->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-
-                                </li>
-                                <br>
-                            @empty
-                                <p>No picture(s)</p>
-                            @endforelse
-                        </ul>
                     </div>
 
                     <button type="submit" class="btn btn-success">{{__('Update')}}</button>
