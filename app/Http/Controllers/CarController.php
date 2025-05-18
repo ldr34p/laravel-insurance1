@@ -42,10 +42,22 @@ class CarController extends Controller
 
     public function update(CarRequest $request, Car $car)
     {
+        //$request->validate();
         $car->reg_number = $request->reg_number;
         $car->brand = $request->brand;
         $car->model = $request->model;
         $car->owner_id = $request->owner_id;
+
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                $path = $photo->store('car_photos', 'public');
+
+                $car->photo()->create([
+                    'path' => $path,
+                ]);
+            }
+        }
+
         $car->save();
 
         return redirect()->route('cars.index');

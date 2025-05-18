@@ -5,6 +5,7 @@ use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ShortCodeController;
 use App\Http\Controllers\LangController;
+use App\Http\Controllers\CarPhotoController;
 use App\Http\Middleware\Bug;
 use App\Http\Middleware\IsAdmin;
 
@@ -21,12 +22,6 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route::resource('owners', OwnerController::class);
-//Route::resource('cars', CarController::class);
-
-Route::resource('cars', CarController::class)->only('index')->middleware('auth');
-Route::resource('owners', OwnerController::class)->only('index')->middleware('auth');
-
 Route::resource('cars', CarController::class)->except(['index', 'destroy'])->middleware(Bug::class);
 Route::resource('cars', CarController::class)->only(['destroy', 'create', 'store', 'edit', 'update'])->middleware(IsAdmin::class);
 
@@ -38,3 +33,6 @@ Route::resource('shortcodes', ShortCodeController::class)->except(['index', 'des
 Route::resource('shortcodes', ShortCodeController::class)->only(['destroy', 'create', 'store', 'edit', 'update'])->middleware(IsAdmin::class);
 
 Route::get('setLanguage/{lang}', [LangController::class, 'switchLang'])->name('setLanguage');
+
+Route::delete('/car-photo/{carPhoto}', [CarPhotoController::class, 'destroy'])->name('car-photos.destroy');
+

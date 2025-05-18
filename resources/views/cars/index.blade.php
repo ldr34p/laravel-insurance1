@@ -8,6 +8,7 @@
                 <table class="table">
                     <tbody>
                     <tr>
+                        <th>{{ __("Photo") }}</th>
                         <th>{{ __("Registration Number") }}</th>
                         <th>{{ __("Brand") }}</th>
                         <th>{{ __("Model") }}</th>
@@ -19,6 +20,13 @@
                     <tbody>
                     @foreach ($cars as $car)
                         <tr>
+                            @if ($car->photo->first())
+                                <td>
+                                    <img src="{{ asset('storage/' . $car->photo->first()->path) }}" alt="" style="width: 100px">
+                                </td>
+                            @else
+                                <td></td>
+                            @endif
                             <td>{{$car->reg_number}}</td>
                             <td>{{$car->brand}}</td>
                             <td>{{$car->model}}</td>
