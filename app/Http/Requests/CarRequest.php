@@ -27,7 +27,7 @@ class CarRequest extends FormRequest
                 'required',
                 'string',
                 'max:6',
-                'regex:/^([ABCDEFGHIYJKLMNOPRSTUVZ]{3}[0-9]{3}|T[0-9]{4}|EX[0-9]{4}|H[0-9]{5}|P[0-9]{5}|[0-9]{4}[A-Z]{2})$/',
+                'regex:/^([ABCDEFGHIYJKLMNOPRSTUVZ]{3}[0-9]{3}|T[0-9]{4}|E[ABCDEFGHIYJKLMNOPRSTUVZ][0-9]{4}|H[0-9]{5}|P[0-9]{5}|[0-9]{4}[A-Z]{2})$/',
                 Rule::unique('cars', 'reg_number')->ignore($this->route('car')),
             ],
             'brand' => 'required|string|max:30',

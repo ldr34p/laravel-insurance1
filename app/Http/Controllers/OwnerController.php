@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\App;
 
 class OwnerController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Owner::class, 'Owner');
+    }
     public function index(Request $request)
     {
         $owners = Owner::all();
@@ -32,13 +36,19 @@ class OwnerController extends Controller
         return redirect()->route('owners.index');
     }
 
-    public function edit(Owner $owner)
+    public function edit(Request $request, Owner $owner)
     {
+        if (! $request->user()->can('editOwner', $owner) ){
+            return redirect()->route('owners.index');
+        }
         return view('owners.edit', ['owner' => $owner]);
     }
 
     public function update(Request $request, Owner $owner)
     {
+        if (! $request->user()->can('editOwner', $owner) ){
+            return redirect()->route('owners.index');
+        }
         $owner->name = $request->name;
         $owner->surname = $request->surname;
         $owner->phone = $request->phone;
@@ -49,8 +59,11 @@ class OwnerController extends Controller
         return redirect()->route('owners.index');
     }
 
-    public function destroy(Owner $owner)
+    public function destroy(Request $request, Owner $owner)
     {
+        if (! $request->user()->can('deleteOwner', $owner) ){
+            return redirect()->route('owners.index');
+        }
         $owner->delete();
         return redirect()->route('owners.index');
     }

@@ -4,7 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mt-3">
+            @can('createOwner')
             <a href="{{ route("owners.create") }}" class="btn btn-success">{{ __('Add New Owner') }}</a>
+            @endcan
             <table class="table">
                 <tbody>
                 <tr>
@@ -26,16 +28,18 @@
                         <td>{{$owner->phone}}</td>
                         <td>{{$owner->address}}</td>
                         <td>
-                            <a href="{{ route('owners.edit', $owner->id) }}" class="btn btn-primary">
-                                {{ __("Edit") }}
-                            </a>
+                            @can('editOwner', $owner)
+                                <a href="{{ route('owners.edit', $owner->id) }}" class="btn btn-primary">{{ __("Edit") }}</a>
+                            @endcan
                         </td>
                         <td>
+                            @can('deleteOwner', $owner)
                             <form action="{{ route('owners.destroy', $owner->id) }}" method="post">
                                 @csrf
                                 @method("DELETE")
                                 <button href="" class="btn btn-danger" onclick="return confirm('{{__('Are you sure?')}}')">{{ __('Delete')}}</button>
                             </form>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
