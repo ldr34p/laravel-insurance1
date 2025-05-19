@@ -70,7 +70,16 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} ({{ (Auth::user()->type!='admin')?__('viewer'):__('admin') }})
+                                    {{ Auth::user()->name }}
+                                    @if(Auth::user()->type=='admin')
+                                        ({{__('admin')}})
+                                    @endif
+                                    @if(Auth::user()->type=='readonly')
+                                        ({{__('read only')}})
+                                    @endif
+                                    @if(Auth::user()->type=='regular')
+                                        ({{__('regular')}})
+                                    @endif
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

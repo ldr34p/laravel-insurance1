@@ -35,14 +35,19 @@ class CarController extends Controller
         return redirect()->route('cars.index');
     }
 
-    public function edit(Car $car)
+    public function edit(Car $car, Request $request)
     {
+
         $owners = Owner::all();
         return view('cars.edit', compact('car', 'owners'));
     }
 
     public function update(CarRequest $request, Car $car)
     {
+        if (! $request->user()->can('editCar', $car) ){
+            return redirect()->route('cars.index');
+        }
+
         $car->reg_number = $request->reg_number;
         $car->brand = $request->brand;
         $car->model = $request->model;
@@ -65,8 +70,11 @@ class CarController extends Controller
         return redirect()->route('cars.index');
     }
 
-    public function destroy(Car $car)
+    public function destroy(Car $car, Request $request)
     {
+        if (! $request->user()->can('deleteCar', $car) ){
+            return redirect()->route('cars.index');
+        }
         $car->delete();
 
         return redirect()->route('cars.index');

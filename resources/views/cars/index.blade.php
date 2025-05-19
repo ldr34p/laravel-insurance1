@@ -4,8 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-3">
+                @can('createCar')
                 <a href="{{ route("cars.create") }}" class="btn btn-success">{{ __('Add New Car') }}</a>
-                <table class="table">
+                @endcan
+                    <table class="table">
                     <tbody>
                     <tr>
                         <th>{{__('Photo')}}</th>
@@ -19,6 +21,7 @@
                     </tbody>
                     <tbody>
                     @foreach ($cars as $car)
+                        @can('canViewCar', $car)
                         <tr>
                             <td>
                                 @if ($car->images->first())
@@ -36,18 +39,21 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('cars.edit', $car->id) }}" class="btn btn-primary">
-                                    {{ __("Edit") }}
-                                </a>
+                                @can('editCar', $car)
+                                    <a href="{{ route('cars.edit', $car->id) }}" class="btn btn-primary">{{ __("Edit") }}</a>
+                                @endcan
                             </td>
                             <td>
-                                <form action="{{ route('cars.destroy', $car->id) }}" method="post">
-                                    @csrf
-                                    @method("DELETE")
-                                    <button href="" class="btn btn-danger" onclick="return confirm('{{__('Are you sure?')}}')">{{ __('Delete') }}</button>
-                                </form>
+                                @can('deleteCar', $car)
+                                    <form action="{{ route('cars.destroy', $car->id) }}" method="post">
+                                        @csrf
+                                        @method("DELETE")
+                                        <button href="" onclick="return confirm('{{__('Are you sure?')}}')" class="btn btn-danger">{{ __("Delete") }}</button>
+                                    </form>
+                                @endcan
                             </td>
                         </tr>
+                        @endcan
                     @endforeach
                     </tbody>
                 </table>
